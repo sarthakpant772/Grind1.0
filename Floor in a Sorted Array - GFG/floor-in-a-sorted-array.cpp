@@ -19,10 +19,10 @@ class Solution{
             
             if(v[mid]<x){
                 ans = mid;
-                l++;
+                l=mid+1;
             }
             else if(v[mid]>x){
-                r--;
+                r=mid-1;
             }
             else{
                 ans = mid;
