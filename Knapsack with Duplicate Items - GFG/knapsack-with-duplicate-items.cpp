@@ -28,7 +28,7 @@ public:
     }
     
     int memo(int val[] , int wt[] , int n , int W){
-        if(n==0){
+        if(n==0 || W==0){
             return 0;
         }
         
@@ -45,13 +45,41 @@ public:
         
     }
     
+    int tab(int val[] , int wt[] , int n ,int W){
+        
+        for(int i=0;i<=n;++i){
+            for(int j=0;j<=W;++j){
+                if(i==0){
+                    dp[i][j]=0;
+                }
+                if(j==0){
+                    dp[i][j]=0;
+                }
+            }
+        }
+        
+        
+        for(int i=1;i<=n;++i){
+            for(int j=1;j<=W;++j){
+                if(wt[i-1]>j){
+                    dp[i][j]=dp[i-1][j];
+                }
+                else{
+                    dp[i][j]=max(val[i-1]+dp[i][j-wt[i-1]] , dp[i-1][j]);  
+                }
+            }
+        }
+        
+        return dp[n][W];
+        
+    }
     
     int knapSack(int N, int W, int val[], int wt[])
     {
         // code here
         memset(dp,-1,sizeof(dp));
         
-        return memo(val,wt,N,W);
+        return tab(val,wt,N,W);
     }
 };
 
