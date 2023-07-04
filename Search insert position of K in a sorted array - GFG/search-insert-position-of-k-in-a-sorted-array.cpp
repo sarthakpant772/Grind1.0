@@ -11,23 +11,24 @@ class Solution{
     {
         // code here
         int l = 0  , r=N-1;
-        int ans =-1;
+        int ans =N;
         while(l<=r){
             int mid = (l+r)/2;
             
             if(arr[mid]==k)
                 return mid;
             if(arr[mid]>k){
+                ans = mid;
                 r = mid-1;
             }
             else{
-                ans = mid;
+                // ans = mid;
                 l = mid+1;
             }
             
         }
         
-        return ans+1;
+        return ans;
     }
 };
 
