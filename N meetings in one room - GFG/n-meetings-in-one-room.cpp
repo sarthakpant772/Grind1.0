@@ -14,23 +14,22 @@ class Solution
         vector<pair<int,int>> vp;
         
         for(int i=0;i<n;++i){
-            vp.push_back({end[i],start[i]});
+            vp.push_back({end[i] , start[i]});
         }
         
-        sort(vp.begin(),vp.end());
+        sort(vp.begin() , vp.end());
         
-        int ans =1;
-        int last = vp[0].first;
-        
+        int ans=1;
+        int ends = vp[0].first;
         for(int i=1;i<n;++i){
-            if(vp[i].second>last and vp[i].first){
+            if(vp[i].second>ends){
                 ans++;
-                last= vp[i].first;
+                ends = vp[i].first;
             }
         }
         
-        
         return ans;
+        
     }
 };
 
