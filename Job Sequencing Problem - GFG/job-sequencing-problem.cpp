@@ -30,45 +30,39 @@ class Solution
     vector<int> JobScheduling(Job arr[], int n) 
     { 
         // your code here
-        
         vector<pair<int,int>> vp;
-        int dead = 0;
-        for(int i =0 ;i<n;++i){
-            vp.push_back({arr[i].profit,arr[i].dead});
-            dead = max(dead ,arr[i].dead);
+        
+        for(int i = 0;i<n;++i){
+            vp.push_back({arr[i].profit , arr[i].dead});
         }
         
+        sort(vp.begin() , vp.end());
         
-        sort(vp.begin(),vp.end());
-        reverse(vp.begin(),vp.end());
-        int count=0 , profit =0;   
-        
-        
-        vector<int> temp (dead+1 , 0);
-        
-        
-        for(auto it:vp){
+        vector<int> mp(1e5+1,-1);
+        int ans =0;
+        int count=0;
+        for(int i=n-1;i>=0;--i){
             
-            int i=it.second;
+            int dead = vp[i].second;
             
-            
-            while(i>=1){
-                if(temp[i]==0){
-                    temp[i]=1;
-                    profit+=it.first;
+            while(dead>=1){
+                if(mp[dead]!=-1){
+                    dead--;
+                }
+                else{
+                    ans+=vp[i].first;
+                    mp[dead]++;
                     count++;
-                    
-                    // cout<<it.first<<" "<<it.second<<endl;
                     break;
                 }
-                    i--;
             }
+            
         }
         
         
+        return {count,ans};
         
         
-        return {count , profit};
     } 
 };
 
