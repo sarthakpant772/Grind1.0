@@ -99,29 +99,28 @@ class Solution {
         // Your Code Here
          map<int,int> mp;
         
-        queue<pair<int,Node*>> q;
+        queue<pair<Node* , int>> q;
         
-        q.push({0,root});
-        
+        q.push({root , 0});
         
         while(!q.empty()){
-            int n = q.size();
+            Node* temp = q.front().first;
+            int x = q.front().second;
+            q.pop();
             
-            for(int i=0;i<n;++i){
-                auto it = q.front();
-                q.pop();
-               
-                    mp[it.first]=it.second->data;
-                
-                if(it.second->left)
-                    q.push({it.first-1,it.second->left});
-                
-                if(it.second->right)
-                    q.push({it.first+1,it.second->right});
-                
+            if(temp->left){
+                q.push({temp->left , x-1});
             }
+            if(temp->right){
+                q.push({temp->right , x+1});
+            }
+            
+            
+            mp[x] = temp->data;
         }
+        
         vector<int> ans;
+        
         for(auto it:mp){
             ans.push_back(it.second);
         }
