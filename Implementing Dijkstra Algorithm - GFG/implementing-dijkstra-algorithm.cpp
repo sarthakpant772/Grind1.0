@@ -11,39 +11,40 @@ class Solution
     vector <int> dijkstra(int V, vector<vector<int>> adj[], int S)
     {
         // Code here
-      priority_queue<pair<int,int> , vector<pair<int,int>> , greater<pair<int,int>>> pq;
-      
-      vector<int> dis(V,INT_MAX);
-      
-      pq.push({0,S});
-      
-      dis[S]=0;
-      
-      while(!pq.empty()){
-          
-          auto x = pq.top();
-          pq.pop();
-          
-          int node = x.second;
-          int wt = x.first;
-          
-          for(auto it: adj[node]){
-              int newNode = it[0];
-              int newWt = it[1];
-              if(wt+it[1] < dis[it[0]]){
-                  
-                  
-                  dis[newNode] = wt+newWt;
-                  pq.push({newWt+wt,newNode});
-                  
-              }
-              
-          }
-          
-      }
-      
-      return dis;
-      
+        vector<int> distTo(V, INT_MAX);
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+        // Source initialised with dist=0.
+        distTo[S] = 0;
+        pq.push({0, S});
+
+        // Now, pop the minimum distance node first from the min-heap
+        // and traverse for all its adjacent nodes.
+        while (!pq.empty())
+        {
+            int node = pq.top().second;
+            int dis = pq.top().first;
+            pq.pop();
+
+            // Check for all adjacent nodes of the popped out
+            // element whether the prev dist is larger than current or not.
+            for (auto it : adj[node])
+            {
+                int v = it[0];
+                int w = it[1];
+                if (dis + w < distTo[v])
+                {
+                    distTo[v] = dis + w;
+    
+                    // If current distance is smaller,
+                    // push it into the queue.
+                    pq.push({dis + w, v});
+                }
+            }
+        }
+        // Return the list containing shortest distances
+        // from source to all the nodes.
+        return distTo;
+        
     }
 };
 
