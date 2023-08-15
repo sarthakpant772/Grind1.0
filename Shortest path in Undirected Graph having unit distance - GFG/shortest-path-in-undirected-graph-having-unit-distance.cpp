@@ -32,7 +32,7 @@ class Solution {
                 q.pop();
                 
                 for(auto it:graph[i]){
-                    if(dis[it]==INT_MAX){
+                    if(dis[it]>dis[i]+1){
                         dis[it] = min(dis[it] , d+1);
                         q.push({it , dis[it]});
                         
